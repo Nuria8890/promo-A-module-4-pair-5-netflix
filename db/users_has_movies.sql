@@ -1,1 +1,0 @@
-SELECT * FROM netflix.users_has_movies;
