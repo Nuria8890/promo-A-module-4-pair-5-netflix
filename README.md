@@ -12,15 +12,15 @@ Por favor marca a continuación los ejercicios que hayáis terminado:
 
 ### 4.2 CRUD MySQL:
 
-1. [] Consultas sobre las películas
-2. [] Consultas sobre los actores.
-3. [] Consultas sobre los usuarios.
+1. [x] Consultas sobre las películas
+2. [x] Consultas sobre los actores.
+3. [x] Consultas sobre los usuarios.
 4. [] Bonus: Agrega más campos a las tablas.
 
 ### 4.3 Diagramas y relaciones MySQL:
 
-1. [] Piensa qué relación es
-2. [] Crea la relación User-Movies.
+1. [x] Piensa qué relación es
+2. [x] Crea la relación User-Movies.
 3. [] Crea la relación Movies-Actors.
 
 ### 4.4 Queries avanzadas de SQL:
