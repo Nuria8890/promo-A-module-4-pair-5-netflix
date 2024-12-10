@@ -21,20 +21,20 @@ Por favor marca a continuación los ejercicios que hayáis terminado:
 
 1. [x] Piensa qué relación es
 2. [x] Crea la relación User-Movies.
-3. [] Crea la relación Movies-Actors.
+3. [x] Crea la relación Movies-Actors.
 
 ### 4.4 Queries avanzadas de SQL:
 
 1. [] Queries avanzadas
-2. [] Descarga el proyecto
-3. [] Arranca el front end
-4. [] Prueba el front end
+2. [x] Descarga el proyecto
+3. [x] Arranca el front end
+4. [x] Prueba el front end
 5. [] Entiende el código de la carpeta web
 
 ### 4.5 NodeJS y ExpressJS:
 
-1. [] Arranca el backend
-2. [] Arranca el frontend
+1. [x] Arranca el backend
+2. [x] Arranca el frontend
 3. [] Prueba el proyecto
 4. [] Entiende el código del proyecto
 
