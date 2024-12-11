@@ -66,7 +66,7 @@ const App = () => {
   useEffect(() => {
     if (userId !== "") {
       apiUser.getUserMoviesFromApi(userId).then((response) => {
-        setUserMovies(response.movies);
+        setUserMovies(response);
       });
     }
   }, [userId]);
