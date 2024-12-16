@@ -7,6 +7,9 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
+// Configuración de motor de plantillas
+server.set("view engine", "ejs");
+
 // init express aplication
 const serverPort = 4000;
 server.listen(serverPort, () => {
@@ -49,15 +52,15 @@ server.get("/movies", async (req, res) => {
   }
 });
 
-// Filtro por género
+// Filtro por género NO FUNCIONA
 
-server.get("/movies", async (req, res) => {
+server.get("/movies/filters", async (req, res) => {
   const connection = await getConnection();
 
   const genreFilterParam = req.query.genre;
-  console.log(genreFilterParam);
+  console.log("genreFilterParam", genreFilterParam);
 
-  let sql = `SELECT * FROM movies WHERE genre = ${genreFilterParam};`;
+  let sql = `SELECT * FROM movies WHERE genre = ?;`;
 
   const [results] = await connection.query(sql, [genreFilterParam]);
 
@@ -75,5 +78,25 @@ server.get("/movies", async (req, res) => {
       status: "success",
       message: results,
     });
+  }
+});
+
+// Motor de plantillas
+
+server.get("/movie/:movieId", async (req, res) => {
+  const connection = await getConnection();
+  const movieId = req.params.movieId;
+
+  const query = "SELECT * FROM movies WHERE idMovies = ?;";
+  const [foundMovie] = await connection.query(query, [movieId]);
+  connection.end();
+
+  if (foundMovie.length === 0) {
+    res.status(404).json({
+      status: "error",
+      message: `No se encontraron películas ni series con el id ${movieId}`,
+    });
+  } else {
+    res.render("movie", foundMovie[0]);
   }
 });
