@@ -113,21 +113,15 @@ server.post("/api/register", async (req, res) => {
 
   */
   console.log(req.body);
-  const { user, email, name, password } = req.body;
+  const { email, password } = req.body;
   const connection = await getConnection();
 
   // encriptar la contraseña
   const passwordHashed = await bcrypt.hash(password, 10);
   console.log("passwordHashed", passwordHashed);
   // insertar el nuevo usuario en mi tabla de la DB
-  const query =
-    "INSERT INTO users (user, email, name, password) VALUES (?, ?, ?, ?)";
-  const [result] = await connection.query(query, [
-    user,
-    email,
-    name,
-    passwordHashed,
-  ]);
+  const query = "INSERT INTO users ( email, password) VALUES (?, ?)";
+  const [result] = await connection.query(query, [email, passwordHashed]);
   // console.log(result);
   res.status(201).json({
     status: "success",
