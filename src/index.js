@@ -113,15 +113,21 @@ server.post("/api/register", async (req, res) => {
 
   */
   console.log(req.body);
-  const { email, password } = req.body;
+  const { email, password, user, name } = req.body;
   const connection = await getConnection();
 
   // encriptar la contraseña
   const passwordHashed = await bcrypt.hash(password, 10);
   console.log("passwordHashed", passwordHashed);
   // insertar el nuevo usuario en mi tabla de la DB
-  const query = "INSERT INTO users ( email, password) VALUES (?, ?)";
-  const [result] = await connection.query(query, [email, passwordHashed]);
+  const query =
+    "INSERT INTO users ( email, password, user, name) VALUES (?,?,?,?)";
+  const [result] = await connection.query(query, [
+    email,
+    passwordHashed,
+    user,
+    name,
+  ]);
   // console.log(result);
   res.status(201).json({
     status: "success",
@@ -140,10 +146,27 @@ server.get("/login", async (req, res) => {
   console.log("result", result);
 
   if (result.length !== 0) {
-    res.status(201).json({
-      succes: true,
-      id: result[0].idUser,
-    });
+    const isSamePassword = await bcrypt.compare(
+      req.body.password,
+      result[0].password
+    );
+    if (isSamePassword) {
+      const infoToken = {
+        id: result[0].id,
+        email: result[0].email,
+      };
+      const token = generateToken(infoToken);
+      res.status(201).json({
+        succes: true,
+        id: result[0].idUser,
+        token: token,
+      });
+    } else {
+      res.status(201).json({
+        succes: false,
+        error: "Contraseña errónea",
+      });
+    }
   } else {
     res.status(201).json({
       succes: false,
