@@ -54,7 +54,7 @@ server.get("/movies", async (req, res) => {
   }
 });
 
-// Filtro por género NO FUNCIONA
+// Filtro por género
 
 server.get("/movies/filters", async (req, res) => {
   const connection = await getConnection();
@@ -127,4 +127,27 @@ server.post("/api/register", async (req, res) => {
     status: "success",
     id: result.insertId,
   });
+});
+
+// Login
+
+server.get("/login", async (req, res) => {
+  console.log("req.body", req.body);
+
+  const connection = await getConnection();
+  const query = "SELECT * FROM users WHERE email = ?;";
+  const [result] = await connection.query(query, req.body.email);
+  console.log("result", result);
+
+  if (result.length !== 0) {
+    res.status(201).json({
+      succes: true,
+      id: result[0].idUser,
+    });
+  } else {
+    res.status(201).json({
+      succes: false,
+      error: "Usuario no encontrado",
+    });
+  }
 });
